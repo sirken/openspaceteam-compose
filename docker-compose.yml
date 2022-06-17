@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  frontend:
+    build: frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "127.0.0.1:3387:80"
+  backend:
+    build: backend
+    restart: unless-stopped
+    environment:
+      - DEBUG=1
+      - SINGLE_PLAYER=false
+      - SIO_HOST=0.0.0.0
+      - SIO_PORT=4433
+    ports:
+      - "127.0.0.1:3388:4433"
